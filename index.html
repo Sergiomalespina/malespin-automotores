@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -8,249 +8,318 @@
 <style>
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-  background:#f4f5f7;
-  color:#151515;
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#0b0b0b;
+  color:#fff;
 }
 
 header{
-  background:#111;
-  color:white;
-  padding:18px 6%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  background:#050505;
+  border-bottom:2px solid #d40000;
+  padding:18px 20px;
   position:sticky;
   top:0;
-  z-index:100;
-  box-shadow:0 3px 15px #0005;
+  z-index:20;
+}
+
+.header-inner{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
 }
 
 .logo{
-  font-size:25px;
+  font-size:26px;
   font-weight:900;
-  letter-spacing:1px;
+  color:#fff;
 }
 
 .logo span{
-  color:#e60012;
+  color:#e00000;
 }
 
 nav a{
-  color:white;
+  color:#fff;
   text-decoration:none;
-  margin-left:20px;
+  margin-left:18px;
   font-weight:bold;
 }
 
+nav a:hover{
+  color:#e00000;
+}
+
 .hero{
-  background:linear-gradient(135deg,#111,#2b2b2b);
-  color:white;
-  padding:70px 6%;
+  background:linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.85)),
+  radial-gradient(circle at center,#4b0000,#090909 65%);
   text-align:center;
+  padding:75px 20px;
 }
 
 .hero h1{
-  font-size:42px;
-  margin-bottom:12px;
+  font-size:clamp(34px,7vw,64px);
+  margin:0 0 12px;
 }
 
 .hero h1 span{
-  color:#e60012;
+  color:#e00000;
 }
 
 .hero p{
   font-size:18px;
-  margin-bottom:25px;
+  color:#ccc;
+  max-width:700px;
+  margin:0 auto 25px;
 }
 
 .btn{
   display:inline-block;
-  border:none;
+  padding:14px 22px;
   border-radius:8px;
-  padding:13px 22px;
-  font-weight:bold;
   text-decoration:none;
+  font-weight:bold;
+  border:0;
   cursor:pointer;
 }
 
 .btn-red{
-  background:#e60012;
-  color:white;
+  background:#e00000;
+  color:#fff;
 }
 
-.btn-dark{
-  background:#111;
-  color:white;
+.btn-red:hover{
+  background:#b80000;
 }
 
 .container{
-  width:90%;
-  max-width:1250px;
+  width:92%;
+  max-width:1200px;
   margin:35px auto;
 }
 
+.section-title{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.section-title h2{
+  font-size:32px;
+  margin:0 0 8px;
+}
+
+.section-title p{
+  color:#aaa;
+}
+
 .filters{
-  background:white;
-  padding:22px;
-  border-radius:15px;
-  box-shadow:0 3px 15px #0001;
+  background:#171717;
+  padding:20px;
+  border-radius:12px;
+  border:1px solid #333;
   margin-bottom:30px;
 }
 
-.filters h2{
-  margin-bottom:18px;
-}
-
-.filter-grid{
+.filters-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  grid-template-columns:repeat(5,1fr);
   gap:12px;
 }
 
-select,input{
+.filters input,
+.filters select{
   width:100%;
   padding:12px;
-  border:1px solid #ddd;
-  border-radius:8px;
-  background:white;
+  border-radius:7px;
+  border:1px solid #444;
+  background:#242424;
+  color:#fff;
 }
 
-.cars{
+.filters button{
+  width:100%;
+  padding:12px;
+}
+
+.autos{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  grid-template-columns:repeat(3,1fr);
   gap:22px;
 }
 
-.car{
-  background:white;
-  border-radius:15px;
+.card{
+  background:#171717;
+  border:1px solid #333;
+  border-radius:14px;
   overflow:hidden;
-  box-shadow:0 4px 18px #0002;
-  transition:.2s;
+  box-shadow:0 8px 25px rgba(0,0,0,.35);
 }
 
-.car:hover{
-  transform:translateY(-4px);
+.card:hover{
+  border-color:#e00000;
 }
 
-.car img{
+.card-image{
   width:100%;
-  height:210px;
+  height:230px;
   object-fit:cover;
-  background:#ddd;
+  display:block;
 }
 
-.car-info{
+.card-content{
   padding:18px;
 }
 
-.car-info h3{
-  font-size:21px;
-  margin-bottom:8px;
+.card h3{
+  margin:0 0 8px;
+  font-size:22px;
 }
 
-.details{
-  color:#666;
+.card .price{
+  font-size:23px;
+  font-weight:bold;
+  color:#e00000;
+  margin:10px 0;
+}
+
+.info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  color:#ccc;
   font-size:14px;
-  margin:8px 0;
-}
-
-.price{
-  font-size:24px;
-  font-weight:900;
-  margin:12px 0;
+  margin:14px 0;
 }
 
 .tags{
   display:flex;
   flex-wrap:wrap;
   gap:6px;
-  margin:10px 0;
+  margin:12px 0;
 }
 
 .tag{
-  background:#eee;
+  background:#292929;
+  border:1px solid #444;
   padding:6px 8px;
   border-radius:5px;
   font-size:12px;
-  font-weight:bold;
-}
-
-.tag.green{
-  background:#dff7e5;
-  color:#08752a;
-}
-
-.tag.blue{
-  background:#e0efff;
-  color:#07549b;
 }
 
 .tag.red{
-  background:#ffe0e3;
-  color:#a3000d;
+  background:#720000;
+  border-color:#a00000;
 }
 
-.car-buttons{
+.card-buttons{
   display:flex;
   gap:8px;
-  margin-top:15px;
 }
 
-.car-buttons a{
+.card-buttons .btn{
   flex:1;
   text-align:center;
-}
-
-.info-section{
-  background:#111;
-  color:white;
-  margin-top:50px;
-  padding:50px 6%;
-}
-
-.info-grid{
-  max-width:1200px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-}
-
-.info-box{
-  background:#222;
-  padding:25px;
-  border-radius:12px;
-}
-
-.info-box h3{
-  color:#ff1729;
-  margin-bottom:10px;
-}
-
-footer{
-  background:#080808;
-  color:#aaa;
-  text-align:center;
-  padding:30px;
+  padding:11px 8px;
+  font-size:14px;
 }
 
 .no-results{
   text-align:center;
-  padding:40px;
+  background:#171717;
+  border:1px solid #333;
+  border-radius:12px;
+  padding:40px 20px;
+  color:#aaa;
   grid-column:1/-1;
 }
 
-@media(max-width:700px){
+.loading{
+  text-align:center;
+  padding:40px;
+  color:#aaa;
+  grid-column:1/-1;
+}
+
+.gallery{
+  position:relative;
+  background:#000;
+}
+
+.gallery img{
+  width:100%;
+  height:230px;
+  object-fit:cover;
+  display:block;
+}
+
+.gallery button{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:rgba(0,0,0,.75);
+  color:#fff;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.gallery .prev{
+  left:10px;
+}
+
+.gallery .next{
+  right:10px;
+}
+
+.gallery-counter{
+  position:absolute;
+  right:10px;
+  bottom:10px;
+  background:rgba(0,0,0,.75);
+  padding:5px 9px;
+  border-radius:5px;
+  font-size:12px;
+}
+
+footer{
+  margin-top:60px;
+  padding:35px 20px;
+  background:#050505;
+  border-top:2px solid #d40000;
+  text-align:center;
+  color:#aaa;
+}
+
+footer strong{
+  color:#fff;
+}
+
+@media(max-width:900px){
+  .filters-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .autos{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:600px){
   header{
+    position:relative;
+  }
+
+  .header-inner{
     flex-direction:column;
-    gap:12px;
   }
 
   nav a{
@@ -258,8 +327,21 @@ footer{
     font-size:14px;
   }
 
-  .hero h1{
-    font-size:32px;
+  .hero{
+    padding:55px 18px;
+  }
+
+  .filters-grid{
+    grid-template-columns:1fr;
+  }
+
+  .autos{
+    grid-template-columns:1fr;
+  }
+
+  .card-image,
+  .gallery img{
+    height:240px;
   }
 }
 </style>
@@ -268,321 +350,627 @@ footer{
 <body>
 
 <header>
-  <div class="logo">MALESPINA <span>AUTOMOTORES</span></div>
+  <div class="header-inner">
+    <div class="logo">MALESPINA <span>Automotores</span></div>
 
-  <nav>
-    <a href="#inicio">Inicio</a>
-    <a href="#vehiculos">Vehículos</a>
-    <a href="#financiacion">Financiación</a>
-    <a href="#contacto">Contacto</a>
-  </nav>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#vehiculos">Vehículos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
 </header>
 
 <section class="hero" id="inicio">
-  <h1>Encontrá tu próximo <span>auto</span></h1>
-  <p>Vehículos seleccionados • Financiación • Crédito • Tarjetas • Cuotas</p>
+  <h1>MALESPINA <span>Automotores</span></h1>
+  <p>Encontrá tu próximo vehículo en Salta.</p>
 
-  <a href="#vehiculos" class="btn btn-red">
-    VER VEHÍCULOS
+  <a class="btn btn-red"
+     href="https://wa.me/543878636763"
+     target="_blank">
+    Consultar por WhatsApp
   </a>
 </section>
 
-<main class="container" id="vehiculos">
+<section class="container" id="vehiculos">
+
+  <div class="section-title">
+    <h2>Nuestros vehículos</h2>
+    <p>Buscá y filtrá el vehículo que estás buscando.</p>
+  </div>
 
   <div class="filters">
 
-    <h2>🔎 Buscar vehículos</h2>
+    <div class="filters-grid">
 
-    <div class="filter-grid">
+      <input
+        id="buscar"
+        type="text"
+        placeholder="Buscar marca o modelo">
 
-      <select id="marca">
+      <select id="filtroMarca">
         <option value="">Todas las marcas</option>
       </select>
 
-      <input
-        type="number"
-        id="precioMax"
-        placeholder="Precio máximo"
-      >
-
-      <select id="anio">
+      <select id="filtroAnio">
         <option value="">Todos los años</option>
       </select>
 
-      <select id="combustible">
+      <select id="filtroCombustible">
         <option value="">Combustible</option>
-        <option>Nafta</option>
-        <option>Diesel</option>
-        <option>Híbrido</option>
-        <option>Eléctrico</option>
+        <option value="Nafta">Nafta</option>
+        <option value="Diésel">Diésel</option>
+        <option value="Híbrido">Híbrido</option>
+        <option value="Eléctrico">Eléctrico</option>
+        <option value="GNC">GNC</option>
       </select>
 
-      <select id="transmision">
+      <select id="filtroTransmision">
         <option value="">Transmisión</option>
-        <option>Manual</option>
-        <option>Automática</option>
+        <option value="Manual">Manual</option>
+        <option value="Automática">Automática</option>
       </select>
+
+      <input
+        id="precioMin"
+        type="number"
+        placeholder="Precio mínimo">
+
+      <input
+        id="precioMax"
+        type="number"
+        placeholder="Precio máximo">
+
+      <button class="btn btn-red" onclick="aplicarFiltros()">
+        Buscar
+      </button>
+
+      <button class="btn" onclick="limpiarFiltros()"
+        style="background:#444;color:#fff">
+        Limpiar
+      </button>
 
     </div>
 
   </div>
 
-  <div class="cars" id="listaAutos"></div>
-
-</main>
-
-<section class="info-section" id="financiacion">
-
-  <div class="info-grid">
-
-    <div class="info-box">
-      <h3>🏦 Crédito</h3>
-      <p>Consultá por vehículos aptos para crédito.</p>
+  <div id="listaAutos" class="autos">
+    <div class="loading">
+      Cargando vehículos...
     </div>
-
-    <div class="info-box">
-      <h3>💳 Tarjetas</h3>
-      <p>Consultá las opciones disponibles con tarjetas de crédito.</p>
-    </div>
-
-    <div class="info-box">
-      <h3>💰 Financiación</h3>
-      <p>Opciones de financiación y cuotas según cada vehículo.</p>
-    </div>
-
-    <div class="info-box">
-      <h3>🚗 Entrega</h3>
-      <p>Consultá cuánto necesitás para la entrega inicial.</p>
-    </div>
-
   </div>
 
 </section>
 
 <footer id="contacto">
-
-  <h3>MALESPINA Automotores</h3>
-
-  <p style="margin:10px 0;">
-    📱 WhatsApp: 3878636763
-  </p>
-
-  <p>
-    📸 Instagram: @Sergiomalespina24
-  </p>
-
-  <br>
-
-  <p>© 2026 MALESPINA Automotores</p>
-
+  <p><strong>MALESPINA Automotores</strong></p>
+  <p>Salta Capital, Salta, Argentina</p>
+  <p>WhatsApp: 387 863 6763</p>
+  <p>Instagram: @Sergiomalespina24</p>
 </footer>
 
 <script>
 
-/* =========================================
-   VEHÍCULOS
-   ========================================= */
+const SUPABASE_URL =
+"https://mbrcbeqbtllajgcqujxv.supabase.co";
 
-const SUPABASE_URL = "https://mbrcbeqbtllajgcqujxv.supabase.co";
-const SUPABASE_KEY = "sb_publishable_-j0aKO6FadT11STSQ7w0jg_1YP-dtTS";
+const SUPABASE_KEY =
+"sb_publishable_-j0aKO6FadT11STSQ7w0jg_1YP-dtTS";
+
+const whatsapp = "543878636763";
 
 let autos = [];
-async function cargarVehiculos() {
-  const respuesta = await fetch(
-    `${SUPABASE_URL}/rest/v1/vehiculos?select=*`,
-    {
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": `Bearer ${SUPABASE_KEY}`
-      }
-    }
-  );
-
-  const texto = await respuesta.text();
-
-  document.getElementById("listaAutos").innerHTML =
-    "<pre style='color:white;white-space:pre-wrap'>" + texto + "</pre>";
-}
+let filtrosInicializados = false;
 
 
 /* =========================================
-   WHATSAPP
+   CARGAR VEHÍCULOS
    ========================================= */
 
-const whatsapp="543878636763";
+async function cargarVehiculos(){
 
+  const lista = document.getElementById("listaAutos");
 
-/* =========================================
-   MOSTRAR AUTOS
-   ========================================= */
+  try{
 
-function mostrarAutos(){
-
-  const lista=document.getElementById("listaAutos");
-
-  const marca=document.getElementById("marca").value;
-  const precioMax=document.getElementById("precioMax").value;
-  const anio=document.getElementById("anio").value;
-  const combustible=document.getElementById("combustible").value;
-  const transmision=document.getElementById("transmision").value;
-
-  const filtrados=autos.filter(auto=>{
-
-    return (
-
-      (!marca || auto.marca===marca) &&
-
-      (!precioMax || auto.precio<=Number(precioMax)) &&
-
-      (!anio || auto.anio===Number(anio)) &&
-
-      (!combustible || auto.combustible===combustible) &&
-
-      (!transmision || auto.transmision===transmision)
-
-    );
-
-  });
-
-
-  lista.innerHTML="";
-
-
-  if(filtrados.length===0){
-
-    lista.innerHTML=
-      `<div class="no-results">
-        <h2>No encontramos vehículos</h2>
-        <p>Probá cambiando los filtros.</p>
-      </div>`;
-
-    return;
-
-  }
-
-
-  filtrados.forEach(auto=>{
-
-    let tags="";
-
-    if(auto.credito)
-      tags+=`<span class="tag green">APTO CRÉDITO</span>`;
-
-    if(auto.financiado)
-      tags+=`<span class="tag blue">FINANCIADO</span>`;
-
-    if(auto.tarjeta)
-      tags+=`<span class="tag red">TARJETA</span>`;
-
-
-    const mensaje=
-      `Hola, quiero consultar por el ${auto.marca} ${auto.modelo} ${auto.anio}. ¿Sigue disponible?`;
-
-
-    lista.innerHTML+=`
-
-      <article class="car">
-
-        <img src="${auto.imagen}" alt="${auto.marca} ${auto.modelo}">
-
-        <div class="car-info">
-
-          <h3>${auto.marca} ${auto.modelo}</h3>
-
-          <div class="details">
-            ${auto.anio} • ${auto.km.toLocaleString("es-AR")} km •
-            ${auto.combustible} • ${auto.transmision}
-          </div>
-
-          <div class="tags">
-            ${tags}
-          </div>
-
-          <div class="price">
-            $${auto.precio.toLocaleString("es-AR")}
-          </div>
-
-          <p class="details">
-            Entrega desde: <b>${auto.entrega}</b><br>
-            ${auto.cuotas}
-          </p>
-
-          <div class="car-buttons">
-
-            <a
-              class="btn btn-red"
-              target="_blank"
-              href="https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}">
-              WhatsApp
-            </a>
-
-            <a
-              class="btn btn-dark"
-              target="_blank"
-              href="https://wa.me/${whatsapp}?text=${encodeURIComponent(
-                "Hola, quiero reservar el "+auto.marca+" "+auto.modelo+" "+auto.anio
-              )}">
-              Reservar
-            </a>
-
-          </div>
-
-        </div>
-
-      </article>
-
+    lista.innerHTML = `
+      <div class="loading">
+        Cargando vehículos...
+      </div>
     `;
 
-  });
+    const respuesta = await fetch(
+      `${SUPABASE_URL}/rest/v1/vehiculos?select=*&order=id.desc`,
+      {
+        headers:{
+          "apikey":SUPABASE_KEY,
+          "Authorization":`Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
 
+    if(!respuesta.ok){
+
+      const error = await respuesta.text();
+
+      throw new Error(error);
+    }
+
+    autos = await respuesta.json();
+
+    cargarFiltros();
+
+    mostrarAutos();
+
+  }catch(error){
+
+    console.error(error);
+
+    lista.innerHTML = `
+      <div class="no-results">
+        <h2>No se pudieron cargar los vehículos</h2>
+        <p>Revisá la conexión con Supabase.</p>
+      </div>
+    `;
+  }
 }
 
 
 /* =========================================
-   CARGAR FILTROS
+   FILTROS
    ========================================= */
 
 function cargarFiltros(){
 
-  const marcas=[...new Set(autos.map(a=>a.marca))].sort();
+  const marcaSelect =
+    document.getElementById("filtroMarca");
 
-  const anios=[...new Set(autos.map(a=>a.anio))].sort((a,b)=>b-a);
+  const anioSelect =
+    document.getElementById("filtroAnio");
 
-  const marcaSelect=document.getElementById("marca");
+  const marcas =
+    [...new Set(
+      autos
+      .map(auto => auto.marca)
+      .filter(Boolean)
+    )]
+    .sort();
 
-  const anioSelect=document.getElementById("anio");
+  const anios =
+    [...new Set(
+      autos
+      .map(auto => auto.anio)
+      .filter(Boolean)
+    )]
+    .sort((a,b) => b-a);
 
+  marcaSelect.innerHTML =
+    `<option value="">Todas las marcas</option>`;
 
-  marcas.forEach(marca=>{
+  marcas.forEach(marca => {
 
-    marcaSelect.innerHTML+=
-      `<option value="${marca}">${marca}</option>`;
-
+    marcaSelect.innerHTML += `
+      <option value="${escapeHTML(marca)}">
+        ${escapeHTML(marca)}
+      </option>
+    `;
   });
 
+  anioSelect.innerHTML =
+    `<option value="">Todos los años</option>`;
 
-  anios.forEach(anio=>{
+  anios.forEach(anio => {
 
-    anioSelect.innerHTML+=
-      `<option value="${anio}">${anio}</option>`;
+    anioSelect.innerHTML += `
+      <option value="${anio}">
+        ${anio}
+      </option>
+    `;
+  });
+
+  filtrosInicializados = true;
+}
+
+
+/* =========================================
+   ESCAPAR TEXTO
+   ========================================= */
+
+function escapeHTML(text){
+
+  return String(text ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* =========================================
+   MOSTRAR VEHÍCULOS
+   ========================================= */
+
+function mostrarAutos(lista = autos){
+
+  const contenedor =
+    document.getElementById("listaAutos");
+
+  if(!lista.length){
+
+    contenedor.innerHTML = `
+      <div class="no-results">
+        <h2>No encontramos vehículos</h2>
+        <p>Probá cambiar los filtros.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  contenedor.innerHTML = "";
+
+  lista.forEach(auto => {
+
+    const fotos =
+      Array.isArray(auto.imagenes) &&
+      auto.imagenes.length
+        ? auto.imagenes
+        : auto.imagen
+          ? [auto.imagen]
+          : [];
+
+    const id = auto.id;
+
+    const primeraFoto =
+      fotos.length
+        ? fotos[0]
+        : "";
+
+    const precio =
+      auto.precio
+        ? "$" + Number(auto.precio).toLocaleString("es-AR")
+        : "Consultar";
+
+    let tags = "";
+
+    if(auto.apto_credito){
+      tags += `<span class="tag red">Apto crédito</span>`;
+    }
+
+    if(auto.financiado){
+      tags += `<span class="tag">Financiación</span>`;
+    }
+
+    if(auto.consignacion){
+      tags += `<span class="tag">Consignación</span>`;
+    }
+
+    if(auto.oferta){
+      tags += `<span class="tag red">Oferta</span>`;
+    }
+
+    if(auto.destacado){
+      tags += `<span class="tag">⭐ Destacado</span>`;
+    }
+
+    const mensaje = encodeURIComponent(
+      `Hola, quiero consultar por el ${auto.marca || ""} ${auto.modelo || ""} ${auto.anio || ""}.`
+    );
+
+    const tarjeta = document.createElement("div");
+
+    tarjeta.className = "card";
+
+    tarjeta.innerHTML = `
+
+      <div class="gallery">
+
+        ${
+          primeraFoto
+          ?
+          `<img id="foto-${id}"
+             src="${escapeHTML(primeraFoto)}"
+             alt="${escapeHTML(auto.marca)} ${escapeHTML(auto.modelo)}">`
+          :
+          `<img
+             src="https://via.placeholder.com/800x500/111111/ffffff?text=Sin+foto"
+             alt="Sin foto">`
+        }
+
+        ${
+          fotos.length > 1
+          ?
+          `
+          <button class="prev"
+            onclick="cambiarFoto(${id},-1)">
+            ‹
+          </button>
+
+          <button class="next"
+            onclick="cambiarFoto(${id},1)">
+            ›
+          </button>
+
+          <div class="gallery-counter"
+               id="contador-${id}">
+            1 / ${fotos.length}
+          </div>
+          `
+          :
+          ""
+        }
+
+      </div>
+
+      <div class="card-content">
+
+        <h3>
+          ${escapeHTML(auto.marca || "")}
+          ${escapeHTML(auto.modelo || "")}
+        </h3>
+
+        ${
+          auto.anio
+          ?
+          `<div>Año ${auto.anio}</div>`
+          :
+          ""
+        }
+
+        <div class="price">
+          ${precio}
+        </div>
+
+        <div class="info">
+
+          ${
+            auto.kilometros != null
+            ?
+            `<div>🚗 ${Number(auto.kilometros).toLocaleString("es-AR")} km</div>`
+            :
+            ""
+          }
+
+          ${
+            auto.combustible
+            ?
+            `<div>⛽ ${escapeHTML(auto.combustible)}</div>`
+            :
+            ""
+          }
+
+          ${
+            auto.transmision
+            ?
+            `<div>⚙️ ${escapeHTML(auto.transmision)}</div>`
+            :
+            ""
+          }
+
+          ${
+            auto.entrega
+            ?
+            `<div>💰 Entrega: ${escapeHTML(auto.entrega)}</div>`
+            :
+            ""
+          }
+
+          ${
+            auto.cuotas
+            ?
+            `<div>📅 ${escapeHTML(auto.cuotas)}</div>`
+            :
+            ""
+          }
+
+        </div>
+
+        ${
+          auto.descripcion
+          ?
+          `<p style="color:#ccc">
+            ${escapeHTML(auto.descripcion)}
+          </p>`
+          :
+          ""
+        }
+
+        <div class="tags">
+          ${tags}
+        </div>
+
+        <div class="card-buttons">
+
+          <a
+            class="btn btn-red"
+            href="https://wa.me/${whatsapp}?text=${mensaje}"
+            target="_blank">
+            WhatsApp
+          </a>
+
+        </div>
+
+      </div>
+    `;
+
+    contenedor.appendChild(tarjeta);
 
   });
 
 }
 
 
-document.querySelectorAll(
-  "#marca,#precioMax,#anio,#combustible,#transmision"
-).forEach(element=>{
+/* =========================================
+   GALERÍA
+   ========================================= */
 
-  element.addEventListener("input",mostrarAutos);
+const posicionesFotos = {};
 
-  element.addEventListener("change",mostrarAutos);
 
-});
+function cambiarFoto(id, direccion){
 
+  const auto =
+    autos.find(a => Number(a.id) === Number(id));
+
+  if(!auto) return;
+
+  const fotos =
+    Array.isArray(auto.imagenes) &&
+    auto.imagenes.length
+      ? auto.imagenes
+      : auto.imagen
+        ? [auto.imagen]
+        : [];
+
+  if(!fotos.length) return;
+
+  if(posicionesFotos[id] == null){
+    posicionesFotos[id] = 0;
+  }
+
+  posicionesFotos[id] += direccion;
+
+  if(posicionesFotos[id] < 0){
+    posicionesFotos[id] = fotos.length - 1;
+  }
+
+  if(posicionesFotos[id] >= fotos.length){
+    posicionesFotos[id] = 0;
+  }
+
+  const imagen =
+    document.getElementById(`foto-${id}`);
+
+  const contador =
+    document.getElementById(`contador-${id}`);
+
+  if(imagen){
+    imagen.src = fotos[posicionesFotos[id]];
+  }
+
+  if(contador){
+    contador.textContent =
+      `${posicionesFotos[id] + 1} / ${fotos.length}`;
+  }
+}
+
+
+/* =========================================
+   APLICAR FILTROS
+   ========================================= */
+
+function aplicarFiltros(){
+
+  const buscar =
+    document.getElementById("buscar")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const marca =
+    document.getElementById("filtroMarca").value;
+
+  const anio =
+    document.getElementById("filtroAnio").value;
+
+  const combustible =
+    document.getElementById("filtroCombustible").value;
+
+  const transmision =
+    document.getElementById("filtroTransmision").value;
+
+  const precioMin =
+    Number(document.getElementById("precioMin").value) || 0;
+
+  const precioMax =
+    Number(document.getElementById("precioMax").value) || Infinity;
+
+  const resultado =
+    autos.filter(auto => {
+
+      const texto =
+        `${auto.marca || ""} ${auto.modelo || ""}`
+          .toLowerCase();
+
+      if(buscar && !texto.includes(buscar)){
+        return false;
+      }
+
+      if(marca && auto.marca !== marca){
+        return false;
+      }
+
+      if(anio && String(auto.anio) !== String(anio)){
+        return false;
+      }
+
+      if(combustible && auto.combustible !== combustible){
+        return false;
+      }
+
+      if(transmision && auto.transmision !== transmision){
+        return false;
+      }
+
+      const precio =
+        Number(auto.precio) || 0;
+
+      if(precioMin && precio < precioMin){
+        return false;
+      }
+
+      if(precioMax !== Infinity && precio > precioMax){
+        return false;
+      }
+
+      return true;
+
+    });
+
+  mostrarAutos(resultado);
+}
+
+
+/* =========================================
+   LIMPIAR FILTROS
+   ========================================= */
+
+function limpiarFiltros(){
+
+  document.getElementById("buscar").value = "";
+
+  document.getElementById("filtroMarca").value = "";
+
+  document.getElementById("filtroAnio").value = "";
+
+  document.getElementById("filtroCombustible").value = "";
+
+  document.getElementById("filtroTransmision").value = "";
+
+  document.getElementById("precioMin").value = "";
+
+  document.getElementById("precioMax").value = "";
+
+  mostrarAutos();
+
+}
+
+
+/* =========================================
+   BUSCAR AL ESCRIBIR
+   ========================================= */
+
+document.getElementById("buscar")
+.addEventListener("input",aplicarFiltros);
+
+
+/* =========================================
+   INICIAR
+   ========================================= */
 
 cargarVehiculos();
+
 </script>
 
 </body>
