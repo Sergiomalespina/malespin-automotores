@@ -383,65 +383,43 @@ footer{
    VEHÍCULOS
    ========================================= */
 
-const autos = [
+const SUPABASE_URL = "https://mbrcbeqbtllajgcqujxv.supabase.co";
+const SUPABASE_KEY = "PEGÁ_ACÁ_TU_SB_PUBLISHABLE";
 
-  {
-    marca:"Chevrolet",
-    modelo:"Tracker LTZ",
-    anio:2025,
-    km:12000,
-    precio:28000000,
-    combustible:"Nafta",
-    transmision:"Automática",
+let autos = [];
 
-    imagen:"https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=900&q=80",
+async function cargarVehiculos() {
+  try {
+    const respuesta = await fetch(
+      `${SUPABASE_URL}/rest/v1/vehiculos?select=*`,
+      {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
 
-    credito:true,
-    financiado:true,
-    tarjeta:true,
+    if (!respuesta.ok) {
+      throw new Error("No se pudieron cargar los vehículos");
+    }
 
-    entrega:"$10.000.000",
-    cuotas:"Hasta 36 cuotas"
-  },
+    autos = await respuesta.json();
 
-  {
-    marca:"Toyota",
-    modelo:"Corolla XEI",
-    anio:2024,
-    km:18000,
-    precio:32000000,
-    combustible:"Nafta",
-    transmision:"Automática",
+    cargarFiltros();
+    mostrarAutos();
 
-    imagen:"https://images.unsplash.com/photo-1623869675781-80aa31012a5a?auto=format&fit=crop&w=900&q=80",
+  } catch (error) {
+    console.error(error);
 
-    credito:true,
-    financiado:true,
-    tarjeta:false,
-
-    entrega:"$12.000.000",
-    cuotas:"Hasta 36 cuotas"
-  },
-
-  {
-    marca:"Volkswagen",
-    modelo:"Taos Highline",
-    anio:2024,
-    km:22000,
-    precio:35000000,
-    combustible:"Nafta",
-    transmision:"Automática",
-
-    imagen:"https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=900&q=80",
-
-    credito:false,
-    financiado:true,
-    tarjeta:true,
-
-    entrega:"$15.000.000",
-    cuotas:"Hasta 24 cuotas"
+    document.getElementById("listaAutos").innerHTML = `
+      <div class="no-results">
+        <h2>No se pudieron cargar los vehículos</h2>
+        <p>Intentá nuevamente más tarde.</p>
+      </div>
+    `;
   }
-
+}
 ];
 
 
@@ -622,10 +600,7 @@ document.querySelectorAll(
 });
 
 
-cargarFiltros();
-
-mostrarAutos();
-
+cargarVehiculos();
 </script>
 
 </body>
