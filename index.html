@@ -405,7 +405,7 @@ async function cargarVehiculos() {
     }
 
     autos = await respuesta.json();
-
+console.log("AUTOS DESDE SUPABASE:", autos);
     cargarFiltros();
     mostrarAutos();
 
