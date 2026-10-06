@@ -387,45 +387,23 @@ const SUPABASE_URL = "https://mbrcbeqbtllajgcqujxv.supabase.co";
 const SUPABASE_KEY = "sb_publishable_-j0aKO6FadT11STSQ7w0jg_1YP-dtTS";
 
 let autos = [];
-
 async function cargarVehiculos() {
-  try {
-    const respuesta = await fetch(
-      `${SUPABASE_URL}/rest/v1/vehiculos?select=*`,
-      {
-        headers: {
-          "apikey": SUPABASE_KEY,
-          "Authorization": `Bearer ${SUPABASE_KEY}`
-        }
+  const respuesta = await fetch(
+    `${SUPABASE_URL}/rest/v1/vehiculos?select=*`,
+    {
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`
       }
-    );
-
-    if (!respuesta.ok) {
-      throw new Error("No se pudieron cargar los vehículos");
     }
+  );
 
-    autos = await respuesta.json();
-alert("Vehículos recibidos: " + autos.length);
-    cargarFiltros();
-    mostrarAutos();
+  const texto = await respuesta.text();
 
-  } catch (error) {
-    console.error(error);
-
-    document.getElementById("listaAutos").innerHTML = `
-      <div class="no-results">
-        <h2>No se pudieron cargar los vehículos</h2>
-        <p>Intentá nuevamente más tarde.</p>
-      </div>
-    `;
-  }
-}
+  document.getElementById("listaAutos").innerHTML =
+    "<pre style='color:white;white-space:pre-wrap'>" + texto + "</pre>";
 }
 
-
-/* =========================================
-   WHATSAPP
-   ========================================= */
 
 /* =========================================
    WHATSAPP
