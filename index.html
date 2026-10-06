@@ -1,0 +1,632 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MALESPINA Automotores</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  background:#f4f5f7;
+  color:#151515;
+}
+
+header{
+  background:#111;
+  color:white;
+  padding:18px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 3px 15px #0005;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.logo span{
+  color:#e60012;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:20px;
+  font-weight:bold;
+}
+
+.hero{
+  background:linear-gradient(135deg,#111,#2b2b2b);
+  color:white;
+  padding:70px 6%;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:42px;
+  margin-bottom:12px;
+}
+
+.hero h1 span{
+  color:#e60012;
+}
+
+.hero p{
+  font-size:18px;
+  margin-bottom:25px;
+}
+
+.btn{
+  display:inline-block;
+  border:none;
+  border-radius:8px;
+  padding:13px 22px;
+  font-weight:bold;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+.btn-red{
+  background:#e60012;
+  color:white;
+}
+
+.btn-dark{
+  background:#111;
+  color:white;
+}
+
+.container{
+  width:90%;
+  max-width:1250px;
+  margin:35px auto;
+}
+
+.filters{
+  background:white;
+  padding:22px;
+  border-radius:15px;
+  box-shadow:0 3px 15px #0001;
+  margin-bottom:30px;
+}
+
+.filters h2{
+  margin-bottom:18px;
+}
+
+.filter-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:12px;
+}
+
+select,input{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  background:white;
+}
+
+.cars{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:22px;
+}
+
+.car{
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 4px 18px #0002;
+  transition:.2s;
+}
+
+.car:hover{
+  transform:translateY(-4px);
+}
+
+.car img{
+  width:100%;
+  height:210px;
+  object-fit:cover;
+  background:#ddd;
+}
+
+.car-info{
+  padding:18px;
+}
+
+.car-info h3{
+  font-size:21px;
+  margin-bottom:8px;
+}
+
+.details{
+  color:#666;
+  font-size:14px;
+  margin:8px 0;
+}
+
+.price{
+  font-size:24px;
+  font-weight:900;
+  margin:12px 0;
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin:10px 0;
+}
+
+.tag{
+  background:#eee;
+  padding:6px 8px;
+  border-radius:5px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.tag.green{
+  background:#dff7e5;
+  color:#08752a;
+}
+
+.tag.blue{
+  background:#e0efff;
+  color:#07549b;
+}
+
+.tag.red{
+  background:#ffe0e3;
+  color:#a3000d;
+}
+
+.car-buttons{
+  display:flex;
+  gap:8px;
+  margin-top:15px;
+}
+
+.car-buttons a{
+  flex:1;
+  text-align:center;
+}
+
+.info-section{
+  background:#111;
+  color:white;
+  margin-top:50px;
+  padding:50px 6%;
+}
+
+.info-grid{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.info-box{
+  background:#222;
+  padding:25px;
+  border-radius:12px;
+}
+
+.info-box h3{
+  color:#ff1729;
+  margin-bottom:10px;
+}
+
+footer{
+  background:#080808;
+  color:#aaa;
+  text-align:center;
+  padding:30px;
+}
+
+.no-results{
+  text-align:center;
+  padding:40px;
+  grid-column:1/-1;
+}
+
+@media(max-width:700px){
+  header{
+    flex-direction:column;
+    gap:12px;
+  }
+
+  nav a{
+    margin:0 7px;
+    font-size:14px;
+  }
+
+  .hero h1{
+    font-size:32px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">MALESPINA <span>AUTOMOTORES</span></div>
+
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#vehiculos">Vehículos</a>
+    <a href="#financiacion">Financiación</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<section class="hero" id="inicio">
+  <h1>Encontrá tu próximo <span>auto</span></h1>
+  <p>Vehículos seleccionados • Financiación • Crédito • Tarjetas • Cuotas</p>
+
+  <a href="#vehiculos" class="btn btn-red">
+    VER VEHÍCULOS
+  </a>
+</section>
+
+<main class="container" id="vehiculos">
+
+  <div class="filters">
+
+    <h2>🔎 Buscar vehículos</h2>
+
+    <div class="filter-grid">
+
+      <select id="marca">
+        <option value="">Todas las marcas</option>
+      </select>
+
+      <input
+        type="number"
+        id="precioMax"
+        placeholder="Precio máximo"
+      >
+
+      <select id="anio">
+        <option value="">Todos los años</option>
+      </select>
+
+      <select id="combustible">
+        <option value="">Combustible</option>
+        <option>Nafta</option>
+        <option>Diesel</option>
+        <option>Híbrido</option>
+        <option>Eléctrico</option>
+      </select>
+
+      <select id="transmision">
+        <option value="">Transmisión</option>
+        <option>Manual</option>
+        <option>Automática</option>
+      </select>
+
+    </div>
+
+  </div>
+
+  <div class="cars" id="listaAutos"></div>
+
+</main>
+
+<section class="info-section" id="financiacion">
+
+  <div class="info-grid">
+
+    <div class="info-box">
+      <h3>🏦 Crédito</h3>
+      <p>Consultá por vehículos aptos para crédito.</p>
+    </div>
+
+    <div class="info-box">
+      <h3>💳 Tarjetas</h3>
+      <p>Consultá las opciones disponibles con tarjetas de crédito.</p>
+    </div>
+
+    <div class="info-box">
+      <h3>💰 Financiación</h3>
+      <p>Opciones de financiación y cuotas según cada vehículo.</p>
+    </div>
+
+    <div class="info-box">
+      <h3>🚗 Entrega</h3>
+      <p>Consultá cuánto necesitás para la entrega inicial.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<footer id="contacto">
+
+  <h3>MALESPINA Automotores</h3>
+
+  <p style="margin:10px 0;">
+    📱 WhatsApp: 3878636763
+  </p>
+
+  <p>
+    📸 Instagram: @Sergiomalespina24
+  </p>
+
+  <br>
+
+  <p>© 2026 MALESPINA Automotores</p>
+
+</footer>
+
+<script>
+
+/* =========================================
+   VEHÍCULOS
+   ========================================= */
+
+const autos = [
+
+  {
+    marca:"Chevrolet",
+    modelo:"Tracker LTZ",
+    anio:2025,
+    km:12000,
+    precio:28000000,
+    combustible:"Nafta",
+    transmision:"Automática",
+
+    imagen:"https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=900&q=80",
+
+    credito:true,
+    financiado:true,
+    tarjeta:true,
+
+    entrega:"$10.000.000",
+    cuotas:"Hasta 36 cuotas"
+  },
+
+  {
+    marca:"Toyota",
+    modelo:"Corolla XEI",
+    anio:2024,
+    km:18000,
+    precio:32000000,
+    combustible:"Nafta",
+    transmision:"Automática",
+
+    imagen:"https://images.unsplash.com/photo-1623869675781-80aa31012a5a?auto=format&fit=crop&w=900&q=80",
+
+    credito:true,
+    financiado:true,
+    tarjeta:false,
+
+    entrega:"$12.000.000",
+    cuotas:"Hasta 36 cuotas"
+  },
+
+  {
+    marca:"Volkswagen",
+    modelo:"Taos Highline",
+    anio:2024,
+    km:22000,
+    precio:35000000,
+    combustible:"Nafta",
+    transmision:"Automática",
+
+    imagen:"https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=900&q=80",
+
+    credito:false,
+    financiado:true,
+    tarjeta:true,
+
+    entrega:"$15.000.000",
+    cuotas:"Hasta 24 cuotas"
+  }
+
+];
+
+
+/* =========================================
+   WHATSAPP
+   ========================================= */
+
+const whatsapp="543878636763";
+
+
+/* =========================================
+   MOSTRAR AUTOS
+   ========================================= */
+
+function mostrarAutos(){
+
+  const lista=document.getElementById("listaAutos");
+
+  const marca=document.getElementById("marca").value;
+  const precioMax=document.getElementById("precioMax").value;
+  const anio=document.getElementById("anio").value;
+  const combustible=document.getElementById("combustible").value;
+  const transmision=document.getElementById("transmision").value;
+
+  const filtrados=autos.filter(auto=>{
+
+    return (
+
+      (!marca || auto.marca===marca) &&
+
+      (!precioMax || auto.precio<=Number(precioMax)) &&
+
+      (!anio || auto.anio===Number(anio)) &&
+
+      (!combustible || auto.combustible===combustible) &&
+
+      (!transmision || auto.transmision===transmision)
+
+    );
+
+  });
+
+
+  lista.innerHTML="";
+
+
+  if(filtrados.length===0){
+
+    lista.innerHTML=
+      `<div class="no-results">
+        <h2>No encontramos vehículos</h2>
+        <p>Probá cambiando los filtros.</p>
+      </div>`;
+
+    return;
+
+  }
+
+
+  filtrados.forEach(auto=>{
+
+    let tags="";
+
+    if(auto.credito)
+      tags+=`<span class="tag green">APTO CRÉDITO</span>`;
+
+    if(auto.financiado)
+      tags+=`<span class="tag blue">FINANCIADO</span>`;
+
+    if(auto.tarjeta)
+      tags+=`<span class="tag red">TARJETA</span>`;
+
+
+    const mensaje=
+      `Hola, quiero consultar por el ${auto.marca} ${auto.modelo} ${auto.anio}. ¿Sigue disponible?`;
+
+
+    lista.innerHTML+=`
+
+      <article class="car">
+
+        <img src="${auto.imagen}" alt="${auto.marca} ${auto.modelo}">
+
+        <div class="car-info">
+
+          <h3>${auto.marca} ${auto.modelo}</h3>
+
+          <div class="details">
+            ${auto.anio} • ${auto.km.toLocaleString("es-AR")} km •
+            ${auto.combustible} • ${auto.transmision}
+          </div>
+
+          <div class="tags">
+            ${tags}
+          </div>
+
+          <div class="price">
+            $${auto.precio.toLocaleString("es-AR")}
+          </div>
+
+          <p class="details">
+            Entrega desde: <b>${auto.entrega}</b><br>
+            ${auto.cuotas}
+          </p>
+
+          <div class="car-buttons">
+
+            <a
+              class="btn btn-red"
+              target="_blank"
+              href="https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}">
+              WhatsApp
+            </a>
+
+            <a
+              class="btn btn-dark"
+              target="_blank"
+              href="https://wa.me/${whatsapp}?text=${encodeURIComponent(
+                "Hola, quiero reservar el "+auto.marca+" "+auto.modelo+" "+auto.anio
+              )}">
+              Reservar
+            </a>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================================
+   CARGAR FILTROS
+   ========================================= */
+
+function cargarFiltros(){
+
+  const marcas=[...new Set(autos.map(a=>a.marca))].sort();
+
+  const anios=[...new Set(autos.map(a=>a.anio))].sort((a,b)=>b-a);
+
+  const marcaSelect=document.getElementById("marca");
+
+  const anioSelect=document.getElementById("anio");
+
+
+  marcas.forEach(marca=>{
+
+    marcaSelect.innerHTML+=
+      `<option value="${marca}">${marca}</option>`;
+
+  });
+
+
+  anios.forEach(anio=>{
+
+    anioSelect.innerHTML+=
+      `<option value="${anio}">${anio}</option>`;
+
+  });
+
+}
+
+
+document.querySelectorAll(
+  "#marca,#precioMax,#anio,#combustible,#transmision"
+).forEach(element=>{
+
+  element.addEventListener("input",mostrarAutos);
+
+  element.addEventListener("change",mostrarAutos);
+
+});
+
+
+cargarFiltros();
+
+mostrarAutos();
+
+</script>
+
+</body>
+</html>
