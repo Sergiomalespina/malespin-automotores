@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | MALESPINA Automotores</title>
+
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:#111;
+      color:#fff;
+      padding:20px;
+    }
+    .container{max-width:900px;margin:auto}
+    h1{color:#e00000}
+    .box{
+      background:#1b1b1b;
+      padding:20px;
+      border-radius:12px;
+      margin-bottom:20px;
+    }
+    input,select,textarea{
+      width:100%;
+      padding:12px;
+      margin:7px 0 14px;
+      border:1px solid #444;
+      border-radius:7px;
+      background:#292929;
+      color:#fff;
+    }
+    textarea{min-height:100px}
+    button{
+      padding:12px 18px;
+      border:0;
+      border-radius:7px;
+      cursor:pointer;
+      font-weight:bold;
+      margin:4px;
+    }
+    .red{background:#e00000;color:#fff}
+    .green{background:#159447;color:#fff}
+    .gray{background:#555;color:#fff}
+    .auto{
+      border:1px solid #444;
+      padding:15px;
+      border-radius:10px;
+      margin-top:12px;
+    }
+    .auto img{
+      width:120px;
+      height:80px;
+      object-fit:cover;
+      border-radius:7px;
+      margin-right:5px;
+    }
+    .hidden{display:none}
+    label{font-weight:bold}
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>MALESPINA Automotores</h1>
+
+  <!-- LOGIN -->
+  <div id="loginBox" class="box">
+    <h2>Acceso administrador</h2>
+
+    <label>Email</label>
+    <input id="email" type="email" placeholder="Tu email">
+
+    <label>Contraseña</label>
+    <input id="password" type="password" placeholder="Tu contraseña">
+
+    <button class="red" onclick="iniciarSesion()">Ingresar</button>
+
+    <p id="loginMensaje"></p>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="adminBox" class="hidden">
+
+    <div class="box">
+      <h2>Cargar vehículo</h2>
+
+      <label>Marca</label>
+      <input id="marca" placeholder="Ej: Toyota">
+
+      <label>Modelo</label>
+      <input id="modelo" placeholder="Ej: Corolla XEI">
+
+      <label>Año</label>
+      <input id="anio" type="number" placeholder="Ej: 2024">
+
+      <label>Kilómetros</label>
+      <input id="kilometros" type="number" placeholder="Ej: 35000">
+
+      <label>Precio</label>
+      <input id="precio" type="number" placeholder="Ej: 25000000">
+
+      <label>Combustible</label>
+      <select id="combustible">
+        <option value="">Seleccionar</option>
+        <option>Nafta</option>
+        <option>Diésel</option>
+        <option>Híbrido</option>
+        <option>Eléctrico</option>
+        <option>GNC</option>
+      </select>
+
+      <label>Transmisión</label>
+      <select id="transmision">
+        <option value="">Seleccionar</option>
+        <option>Manual</option>
+        <option>Automática</option>
+      </select>
+
+      <label>Descripción</label>
+      <textarea id="descripcion" placeholder="Descripción del vehículo"></textarea>
+
+      <label>Fotos del vehículo</label>
+      <input id="fotos" type="file" accept="image/*" multiple>
+
+      <label>
+        <input id="apto_credito" type="checkbox">
+        Apto crédito
+      </label>
+
+      <br>
+
+      <label>
+        <input id="financiado" type="checkbox">
+        Financiación
+      </label>
+
+      <br>
+
+      <label>
+        <input id="consignacion" type="checkbox">
+        Consignación
+      </label>
+
+      <label>Entrega</label>
+      <input id="entrega" placeholder="Ej: $10.000.000">
+
+      <label>Cuotas</label>
+      <input id="cuotas" placeholder="Ej: 12 cuotas de $500.000">
+
+      <br>
+
+      <label>
+        <input id="destacado" type="checkbox">
+        Destacado
+      </label>
+
+      <br>
+
+      <label>
+        <input id="oferta" type="checkbox">
+        Oferta
+      </label>
+
+      <br>
+
+      <button class="green" onclick="guardarVehiculo()">
+        Guardar vehículo
+      </button>
+
+      <p id="mensaje"></p>
+    </div>
+
+    <div class="box">
+      <h2>Vehículos cargados</h2>
+      <div id="lista"></div>
+    </div>
+
+    <button class="gray" onclick="cerrarSesion()">Cerrar sesión</button>
+
+  </div>
+
+</div>
+
+<script>
+
+const SUPABASE_URL = "https://mbrcbeqbtllajgcqujxv.supabase.co";
+
+/* PEGAR ACÁ TU SB_PUBLISHABLE */
+const SUPABASE_KEY = "sb_publishable_-j0aKO6FadT11STSQ7w0jg_1YP-dtTS";
+
+
+async function iniciarSesion(){
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const respuesta = await fetch(
+    `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
+    {
+      method:"POST",
+      headers:{
+        "apikey":SUPABASE_KEY,
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        email:email,
+        password:password
+      })
+    }
+  );
+
+  const data = await respuesta.json();
+
+  if(!respuesta.ok){
+    document.getElementById("loginMensaje").textContent =
+      data.error_description || "No se pudo iniciar sesión";
+    return;
+  }
+
+  localStorage.setItem("access_token",data.access_token);
+  localStorage.setItem("refresh_token",data.refresh_token);
+
+  document.getElementById("loginBox").classList.add("hidden");
+  document.getElementById("adminBox").classList.remove("hidden");
+
+  cargarVehiculos();
+}
+
+
+async function guardarVehiculo(){
+
+  const token = localStorage.getItem("access_token");
+
+  if(!token){
+    alert("Iniciá sesión nuevamente.");
+    return;
+  }
+
+  const mensaje = document.getElementById("mensaje");
+  mensaje.textContent = "Guardando vehículo...";
+
+  try{
+
+    const archivos = document.getElementById("fotos").files;
+    const imagenes = [];
+
+    const idTemporal = Date.now();
+
+    for(let i=0;i<archivos.length;i++){
+
+      const archivo = archivos[i];
+
+      const nombre =
+        idTemporal + "_" +
+        i + "_" +
+        archivo.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+
+      const subida = await fetch(
+        `${SUPABASE_URL}/storage/v1/object/vehiculos/${nombre}`,
+        {
+          method:"POST",
+          headers:{
+            "apikey":SUPABASE_KEY,
+            "Authorization":"Bearer " + token,
+            "Content-Type":archivo.type
+          },
+          body:archivo
+        }
+      );
+
+      if(!subida.ok){
+        throw new Error("No se pudo subir una de las fotos.");
+      }
+
+      const url =
+        `${SUPABASE_URL}/storage/v1/object/public/vehiculos/${nombre}`;
+
+      imagenes.push(url);
+    }
+
+
+    const vehiculo = {
+      marca:document.getElementById("marca").value,
+      modelo:document.getElementById("modelo").value,
+      anio:parseInt(document.getElementById("anio").value) || null,
+      kilometros:parseInt(document.getElementById("kilometros").value) || null,
+      precio:parseFloat(document.getElementById("precio").value) || null,
+      combustible:document.getElementById("combustible").value,
+      transmision:document.getElementById("transmision").value,
+      descripcion:document.getElementById("descripcion").value,
+      imagenes:imagenes,
+      imagen:imagenes.length ? imagenes[0] : null,
+      apto_credito:document.getElementById("apto_credito").checked,
+      financiado:document.getElementById("financiado").checked,
+      consignacion:document.getElementById("consignacion").checked,
+      entrega:document.getElementById("entrega").value,
+      cuotas:document.getElementById("cuotas").value,
+      destacado:document.getElementById("destacado").checked,
+      oferta:document.getElementById("oferta").checked,
+      vendido:false
+    };
+
+
+    const respuesta = await fetch(
+      `${SUPABASE_URL}/rest/v1/vehiculos`,
+      {
+        method:"POST",
+        headers:{
+          "apikey":SUPABASE_KEY,
+          "Authorization":"Bearer " + token,
+          "Content-Type":"application/json",
+          "Prefer":"return=representation"
+        },
+        body:JSON.stringify(vehiculo)
+      }
+    );
+
+    if(!respuesta.ok){
+      const error = await respuesta.text();
+      throw new Error(error);
+    }
+
+    mensaje.textContent = "✅ Vehículo guardado correctamente.";
+
+    document.querySelectorAll("#adminBox input, #adminBox textarea").forEach(
+      elemento => {
+        if(elemento.type === "checkbox"){
+          elemento.checked = false;
+        }else if(elemento.type !== "file"){
+          elemento.value = "";
+        }
+      }
+    );
+
+    document.getElementById("fotos").value = "";
+
+    cargarVehiculos();
+
+  }catch(error){
+
+    console.error(error);
+    mensaje.textContent = "❌ Error: " + error.message;
+
+  }
+
+}
+
+
+async function cargarVehiculos(){
+
+  const token = localStorage.getItem("access_token");
+
+  const respuesta = await fetch(
+    `${SUPABASE_URL}/rest/v1/vehiculos?select=*&order=id.desc`,
+    {
+      headers:{
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer " + token
+      }
+    }
+  );
+
+  const autos = await respuesta.json();
+
+  const lista = document.getElementById("lista");
+
+  lista.innerHTML = "";
+
+  autos.forEach(auto => {
+
+    const imagen =
+      auto.imagen ||
+      (auto.imagenes && auto.imagenes.length
+        ? auto.imagenes[0]
+        : "");
+
+    lista.innerHTML += `
+      <div class="auto">
+
+        ${
+          imagen
+          ? `<img src="${imagen}">`
+          : `<p>Sin foto</p>`
+        }
+
+        <h3>${auto.marca} ${auto.modelo}</h3>
+
+        <p>
+          Año: ${auto.anio || "-"} |
+          Km: ${auto.kilometros || "-"}
+        </p>
+
+        <p>
+          Precio: $${auto.precio || "-"}
+        </p>
+
+        <button class="red"
+          onclick="eliminarVehiculo(${auto.id})">
+          Eliminar
+        </button>
+
+      </div>
+    `;
+
+  });
+
+}
+
+
+async function eliminarVehiculo(id){
+
+  if(!confirm("¿Seguro que querés eliminar este vehículo?")){
+    return;
+  }
+
+  const token = localStorage.getItem("access_token");
+
+  const respuesta = await fetch(
+    `${SUPABASE_URL}/rest/v1/vehiculos?id=eq.${id}`,
+    {
+      method:"DELETE",
+      headers:{
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer " + token
+      }
+    }
+  );
+
+  if(respuesta.ok){
+    alert("Vehículo eliminado.");
+    cargarVehiculos();
+  }else{
+    alert("No se pudo eliminar.");
+  }
+
+}
+
+
+function cerrarSesion(){
+
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+
+  location.reload();
+
+}
+
+
+window.onload = function(){
+
+  const token = localStorage.getItem("access_token");
+
+  if(token){
+
+    document.getElementById("loginBox").classList.add("hidden");
+    document.getElementById("adminBox").classList.remove("hidden");
+
+    cargarVehiculos();
+
+  }
+
+};
+
+</script>
+
+</body>
+</html>
